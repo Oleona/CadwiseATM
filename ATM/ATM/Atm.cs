@@ -75,19 +75,8 @@ namespace ATM
             return (atm.r10count + atm.r50count + atm.r100count + atm.r200count + atm.r500count + atm.r1000count + atm.r2000count + atm.r5000count);
 
         }
-        //public int GetBancnotesCount(Dictionary<int, int> allBanknotesInATM)
-        //{
-        //    int BancnotesCount = 0;
-        //    foreach (KeyValuePair<int, int> k in allBanknotesInATM)
-        //    {
-        //        BancnotesCount += k.Value;
-        //    }
-        //    return BancnotesCount;
-        //}
-
-
-        
-        public Dictionary<int, int> GetCountByDenominations()   //(Dictionary<int, int> allBanknotesStart)
+               
+        public Dictionary<int, int> GetCountByDenominations()   
         {
             ATM atm = new ATM(r10count, r50count, r100count, r200count, r500count, r1000count, r2000count, r5000count);
             Dictionary<int, int> temp = new Dictionary<int, int>
@@ -100,16 +89,9 @@ namespace ATM
                 [1000] = r1000count,
                 [2000] = r2000count,
                 [5000] = r5000count
-            };
-            // Dictionary<int, int> allBanknotesInATM = allBanknotesStart.ToDictionary(orig => orig.Key, orig => orig.Value + temp[orig.Key]);
-
-            //return allBanknotesInATM;
+            };           
             return temp;
         }
-
-
-
-
 
         public string GetDate()
         {
@@ -120,6 +102,7 @@ namespace ATM
 
             return (stringDate);
         }
+
         public string GetATMNumber()
         {
             return (AtmNumber);

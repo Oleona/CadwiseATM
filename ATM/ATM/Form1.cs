@@ -12,9 +12,10 @@ namespace ATM
 {
     public partial class Form1 : Form
     {
-        public int numberBancnotinAtm = 0;
-        public int allSummInATM = 0;
-        Dictionary<int, int> banknotesEachDenomination = new Dictionary<int, int>
+        private int atmBanknotesCount = 0;
+        private int atmMoneyAmount = 0;
+
+        private Dictionary<int, int> banknotesByDenomination = new Dictionary<int, int>
         {
             [10] = 0,
             [50] = 0,
@@ -23,7 +24,7 @@ namespace ATM
             [500] = 0,
             [1000] = 0,
             [2000] = 0,
-            [5000] = 0
+            [5000] = 0,
         };
 
         public int RublesCount10
@@ -67,27 +68,11 @@ namespace ATM
             set { numericUpDown5000.Value = value; }
         }
 
-        public void NumericVisibleYes()
-        {
-            numericUpDown10.Visible = true; numericUpDown50.Visible = true; numericUpDown100.Visible = true;
-            numericUpDown200.Visible = true; numericUpDown500.Visible = true; numericUpDown1000.Visible = true;
-            numericUpDown2000.Visible = true; numericUpDown5000.Visible = true;
-        }
+        public void NumericVisibleYes() => Controls.OfType<NumericUpDown>().ToList().ForEach(c => c.Visible = true);
 
-        public void NumericVisibleNo()
-        {
-            numericUpDown10.Visible = false; numericUpDown50.Visible = false; numericUpDown100.Visible = false;
-            numericUpDown200.Visible = false; numericUpDown500.Visible = false; numericUpDown1000.Visible = false;
-            numericUpDown2000.Visible = false; numericUpDown5000.Visible = false;
+        public void NumericVisibleNo() => Controls.OfType<NumericUpDown>().ToList().ForEach(c => c.Visible = false);
 
-        }
-
-        public void NumericValue_0()
-        {
-            numericUpDown10.Value = 0; numericUpDown50.Value = 0; numericUpDown100.Value = 0;
-            numericUpDown200.Value = 0; numericUpDown500.Value = 0; numericUpDown1000.Value = 0;
-            numericUpDown2000.Value = 0; numericUpDown5000.Value = 0;
-        }
+        public void NumericValue_0() => Controls.OfType<NumericUpDown>().ToList().ForEach(c => c.Value = 0);
 
         public void LblNominalVisibleYes()
         {
@@ -99,10 +84,6 @@ namespace ATM
             lbl10.Visible = false; lbl50.Visible = false; lbl100.Visible = false; lbl200.Visible = false;
             lbl500.Visible = false; lbl1000.Visible = false; lbl2000.Visible = false; lbl5000.Visible = false;
         }
-
-
-
-
 
 
         public Form1()
@@ -118,14 +99,17 @@ namespace ATM
             lblDate.Visible = false;
             lblCapacity.Visible = false;
             btnConfirm.Visible = false;
+            btn1inputMoney.Enabled = false;
+            btn3outMoney.Enabled = false;
+            btn4showATM.Enabled = false;
             lblSumInATMNow.Visible = false;
             lblCountBanknotesNow.Visible = false;
             lblTitleSumOnAcc.Visible = false;
             tbSummOnAccNow.Visible = false;
             lblAllRangeBancnotesInATV.Visible = false;
             tbBancnotesCountInRange.Visible = false;
-        }
 
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -173,6 +157,7 @@ namespace ATM
                 btn5_OK.Visible = false;
                 btn6hideShowAtm.Visible = false;
                 btn9hideUserName.Visible = true;
+                btn4showATM.Enabled = true;
                 lblMoneyDeposit.Visible = false;
                 lblChoosBancnotes.Visible = false;
                 lblPlanSumOnAccAdd.Visible = false;
@@ -187,7 +172,6 @@ namespace ATM
                 tbSummOnAccNow.Visible = false;
                 lblAllRangeBancnotesInATV.Visible = false;
                 tbBancnotesCountInRange.Visible = false;
-
             }
 
             else if (!Users.users.Keys.Contains(a))
@@ -234,6 +218,8 @@ namespace ATM
                 btn8moneyInHide.Visible = false;
                 btn9hideUserName.Visible = true;
                 btnConfirm.Visible = false;
+                btn3outMoney.Enabled = true;
+                btn1inputMoney.Enabled = true;
 
                 lblMoneyDeposit.Visible = false;
                 lblChoosBancnotes.Visible = true;
@@ -255,30 +241,29 @@ namespace ATM
 
         private void btn4showATM_Click(object sender, EventArgs e)
         {
-
             ATM atm = new ATM(RublesCount10, RublesCount50, RublesCount100, RublesCount200, RublesCount500, RublesCount1000, RublesCount2000, RublesCount5000);
             lblDate.Text = atm.GetDate();
             lblnumber.Text = atm.GetATMNumber();
             lblCapacity.Text = atm.GetmaxBanknotesCapacityToString();
             var sb = new StringBuilder();
-            foreach (KeyValuePair<int, int> k in banknotesEachDenomination)
+            foreach (KeyValuePair<int, int> k in banknotesByDenomination)
             {
                 sb.Append(k.Value.ToString());
                 sb.Append("      ");
             }
             tbBancnotesCountInRange.Text = sb.ToString();
-            lblCountBanknotesNow.Text = "Количество купюр в банкомате      " + numberBancnotinAtm.ToString();
-            lblSumInATMNow.Text = "Сумма в банкомате      " + allSummInATM.ToString();
+            lblCountBanknotesNow.Text = "Количество купюр в банкомате      " + atmBanknotesCount.ToString();
+            lblSumInATMNow.Text = "Сумма в банкомате      " + atmMoneyAmount.ToString();
             lblSumInATMNow.Visible = true;
             lblnumber.Visible = true;
             lblDate.Visible = true;
-            lblCapacity.Visible = true;
-            btnConfirm.Visible = false;
+            lblCapacity.Visible = true;            
             lblCountBanknotesNow.Visible = true;
             lblPlanSumOnAccAdd.Visible = false;
             lblAllRangeBancnotesInATV.Visible = true;
             tbBancnotesCountInRange.Visible = true;
             tbSumIntoAcc.Visible = false;
+            btnConfirm.Visible = false;
         }
 
         private void btnChangeUser_Click(object sender, EventArgs e)
@@ -295,6 +280,9 @@ namespace ATM
             btn8moneyInHide.Visible = false;
             btn9hideUserName.Visible = false;
             btnConfirm.Visible = false;
+            btn1inputMoney.Enabled = false;
+            btn3outMoney.Enabled = false;
+            btn4showATM.Enabled = false;
 
             lblMoneyDeposit.Visible = false;
             lblPlanSumOnAccAdd.Visible = false;
@@ -326,7 +314,7 @@ namespace ATM
 
             if (lblPlanSumOnAccAdd.Text == "Нажмите для проверки \r\nвносимой суммы")
             {
-                if ((atm.GetPlanBancnotesCountInATM(textBox1.Text) + numberBancnotinAtm) > atm.GetMaxBanknotesCapasity())
+                if ((atm.GetPlanBancnotesCountInATM(textBox1.Text) + atmBanknotesCount) > atm.GetMaxBanknotesCapasity())
                 {
                     tbSumIntoAcc.Visible = true;
                     tbSumIntoAcc.Text = "Банкомат переполнен  ";
@@ -349,27 +337,27 @@ namespace ATM
                     tbSumIntoAcc.Text = "На счете недостаточно средств ";
                 }
 
-                else if (planWithdrawnSumm > allSummInATM)
+                else if (planWithdrawnSumm > atmMoneyAmount)
                 {
-                    int b = allSummInATM;
+                    int b = atmMoneyAmount;
                     tbSumIntoAcc.Visible = true;
                     tbSumIntoAcc.Text = "В банкомате недостаточно наличных ";
                 }
 
-                else if (planWithdrawnSumm < allSummInATM)
+                else if (planWithdrawnSumm < atmMoneyAmount)
                 {
                     tbSumIntoAcc.Visible = true;
                     bool flag = true;
                     Dictionary<int, int> d = atm.GetCountByDenominations();// сколько каких купюр пользователь хочет снять
-                    banknotesEachDenomination = banknotesEachDenomination.ToDictionary(orig => orig.Key, orig => orig.Value - d[orig.Key]);//разница старого количества купюр и добавленного
+                    banknotesByDenomination = banknotesByDenomination.ToDictionary(orig => orig.Key, orig => orig.Value - d[orig.Key]);//разница старого количества купюр и добавленного
                     int BancnotesCount = 0;
-                    foreach (KeyValuePair<int, int> k in banknotesEachDenomination)
+                    foreach (KeyValuePair<int, int> k in banknotesByDenomination)
                     {
                         BancnotesCount = k.Value;
                         if (k.Value < 0)
                         {
                             tbSumIntoAcc.Text = "Недостаточно запрашиваемых купюр ";
-                            banknotesEachDenomination = banknotesEachDenomination.ToDictionary(orig => orig.Key, orig => orig.Value + d[orig.Key]);
+                            banknotesByDenomination = banknotesByDenomination.ToDictionary(orig => orig.Key, orig => orig.Value + d[orig.Key]);
                             flag = false;
                             btnConfirm.Visible = false;
                             lblPlanSumOnAccAdd.Visible = false;
@@ -379,15 +367,13 @@ namespace ATM
                     if (flag)
                     {
                         //восстанавливаем состояние, так как еще не нажата кнопка подтверждения
-                        banknotesEachDenomination = banknotesEachDenomination.ToDictionary(orig => orig.Key, orig => orig.Value + d[orig.Key]);
+                        banknotesByDenomination = banknotesByDenomination.ToDictionary(orig => orig.Key, orig => orig.Value + d[orig.Key]);
 
                         tbSumIntoAcc.Visible = true;
                         tbSumIntoAcc.Text = atm.GetPlanSummToAddIntoAcc().ToString();
                         btnConfirm.Visible = true;
                     }
                 }
-
-
             }
         }
 
@@ -398,22 +384,30 @@ namespace ATM
 
             if (lblPlanSumOnAccAdd.Text == "Нажмите для проверки \r\nвносимой суммы")
             {
+                if (tbSumIntoAcc.Text == string.Empty)
+                {
+                    tbSumIntoAcc.Text = "0";
+                }
                 int summForAdd = Int32.Parse(tbSumIntoAcc.Text);
                 Users.users[textBox1.Text] += summForAdd;//записали пользователю сумму на счет
                 tbSummOnAccNow.Text = Users.users[textBox1.Text].ToString();
-                numberBancnotinAtm += atm.GetPlanBancnotesCountInATM(textBox1.Text);//АТМ увеличили количесвто банкнот 
-                allSummInATM += summForAdd; //АТМ увеличили сумму в банкомате
-                banknotesEachDenomination = banknotesEachDenomination.ToDictionary(orig => orig.Key, orig => orig.Value + d[orig.Key]);// сохранить сумму старого количества банкнот по номиналам и добавленного                
+                atmBanknotesCount += atm.GetPlanBancnotesCountInATM(textBox1.Text);//АТМ увеличили количесвто банкнот 
+                atmMoneyAmount += summForAdd; //АТМ увеличили сумму в банкомате
+                banknotesByDenomination = banknotesByDenomination.ToDictionary(orig => orig.Key, orig => orig.Value + d[orig.Key]);// сохранить сумму старого количества банкнот по номиналам и добавленного                
             }
 
             else
-            {
+            { 
+                if(tbSumIntoAcc.Text==string.Empty)
+                {
+                    tbSumIntoAcc.Text = "0";
+                }
                 int summForWithdrawn = Int32.Parse(tbSumIntoAcc.Text);
                 Users.users[textBox1.Text] -= summForWithdrawn;
                 tbSummOnAccNow.Text = Users.users[textBox1.Text].ToString();
-                numberBancnotinAtm -= atm.GetPlanBancnotesCountInATM(textBox1.Text);//АТМ уменьшили количесвто банкнот
-                allSummInATM -= summForWithdrawn;// АТМ уменьшили сумму в банкомате
-                banknotesEachDenomination = banknotesEachDenomination.ToDictionary(orig => orig.Key, orig => orig.Value - d[orig.Key]);// сохранить сумму старого количества банкнот по номиналам и снятого
+                atmBanknotesCount -= atm.GetPlanBancnotesCountInATM(textBox1.Text);//АТМ уменьшили количесвто банкнот
+                atmMoneyAmount -= summForWithdrawn;// АТМ уменьшили сумму в банкомате
+                banknotesByDenomination = banknotesByDenomination.ToDictionary(orig => orig.Key, orig => orig.Value - d[orig.Key]);// сохранить сумму старого количества банкнот по номиналам и снятого
 
             }
             tbSumIntoAcc.Visible = false;
