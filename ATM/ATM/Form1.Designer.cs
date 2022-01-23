@@ -42,7 +42,7 @@ namespace ATM
             this.btn9hideUserName = new System.Windows.Forms.Button();
             this.btnChangeUser = new System.Windows.Forms.Button();
             this.lblMoneyDeposit = new System.Windows.Forms.Label();
-            this.lblChoosBancnotes = new System.Windows.Forms.Label();
+            this.lblChooseBanknotes = new System.Windows.Forms.Label();
             this.lbl5000 = new System.Windows.Forms.Label();
             this.lbl2000 = new System.Windows.Forms.Label();
             this.lbl1000 = new System.Windows.Forms.Label();
@@ -209,13 +209,13 @@ namespace ATM
             // 
             // lblChoosBancnotes
             // 
-            this.lblChoosBancnotes.AutoSize = true;
-            this.lblChoosBancnotes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblChoosBancnotes.Location = new System.Drawing.Point(444, 87);
-            this.lblChoosBancnotes.Name = "lblChoosBancnotes";
-            this.lblChoosBancnotes.Size = new System.Drawing.Size(291, 38);
-            this.lblChoosBancnotes.TabIndex = 14;
-            this.lblChoosBancnotes.Text = "Выберите  достоинство купюр в левом поле\r\nи введите количество в правом";
+            this.lblChooseBanknotes.AutoSize = true;
+            this.lblChooseBanknotes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblChooseBanknotes.Location = new System.Drawing.Point(444, 87);
+            this.lblChooseBanknotes.Name = "lblChoosBancnotes";
+            this.lblChooseBanknotes.Size = new System.Drawing.Size(291, 38);
+            this.lblChooseBanknotes.TabIndex = 14;
+            this.lblChooseBanknotes.Text = "Выберите  достоинство купюр в левом поле\r\nи введите количество в правом";
             // 
             // lbl5000
             // 
@@ -493,7 +493,7 @@ namespace ATM
             this.Controls.Add(this.lbl100);
             this.Controls.Add(this.lbl50);
             this.Controls.Add(this.lbl10);
-            this.Controls.Add(this.lblChoosBancnotes);
+            this.Controls.Add(this.lblChooseBanknotes);
             this.Controls.Add(this.lblMoneyDeposit);
             this.Controls.Add(this.btnChangeUser);
             this.Controls.Add(this.btn9hideUserName);
@@ -542,7 +542,7 @@ namespace ATM
         private System.Windows.Forms.Button btnChangeUser;
 
         private System.Windows.Forms.Label lblMoneyDeposit;
-        private System.Windows.Forms.Label lblChoosBancnotes;
+        private System.Windows.Forms.Label lblChooseBanknotes;
         private System.Windows.Forms.Label lbl10;
         private System.Windows.Forms.Label lbl50;
         private System.Windows.Forms.Label lbl100;
