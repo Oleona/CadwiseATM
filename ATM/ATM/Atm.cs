@@ -31,7 +31,7 @@ namespace ATM
             Users[userName] -= sumToWithdraw;
             
             TotalMoney -= sumToWithdraw;
-            TotalBanknotesCount += banknotes.GetTotalBanknotesCount();
+            TotalBanknotesCount -= banknotes.GetTotalBanknotesCount();
 
             banknotesByDenomination = banknotesByDenomination.ToDictionary(
                 orig => orig.Key,
@@ -46,7 +46,7 @@ namespace ATM
             foreach (var banknotes in banknotesByDenomination)
             {
                 sb.Append(banknotes.Value);
-                sb.Append("      ");
+                sb.Append("       ");
             }
 
             return sb.ToString();

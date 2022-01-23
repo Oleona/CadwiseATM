@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ATM
@@ -79,6 +78,286 @@ namespace ATM
             NumericVisibleNo();
             LblNominalVisibleNo();
 
+            InitializeVisibilities();
+        }
+
+        private void btn1inputMoney_Click(object sender, EventArgs e)
+        {
+            NumericVisibleYes();
+            NumericValue_0();
+            tbSumIntoAcc.Visible = true;
+            lblPlanSumOnAccAdd.Visible = true;
+            lblPlanSumOnAccAdd.Text = "Нажмите на этот текст для проверки вносимой суммы";
+            lblMoneyDeposit.Visible = true;
+            lblMoneyDeposit.Text = "Выполняется операция по внесению наличных";
+            tbSumIntoAcc.Text = String.Empty;
+            btnConfirm.Enabled = true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btn3outMoney_Click(object sender, EventArgs e)
+        {
+            NumericVisibleYes();
+            NumericValue_0();
+            tbSumIntoAcc.Visible = true;
+            lblPlanSumOnAccAdd.Visible = true;
+            lblPlanSumOnAccAdd.Text = "Нажмите на этот текст для проверки выводимой суммы";
+            lblMoneyDeposit.Text = "Выполняется операция по снятию наличных";
+            lblMoneyDeposit.Visible = true;
+            tbSumIntoAcc.Text = String.Empty;
+            btnConfirm.Enabled = true;
+        }
+
+        private void btn4showATM_Click(object sender, EventArgs e)
+        {
+            lblDate.Text = ATM.GetDate();
+            lblnumber.Text = ATM.GetATMNumber();
+            lblCapacity.Text = ATM.GetMaxBanknotesCapacityToString();
+            tbBancnotesCountInRange.Text = ATM.ShowState();
+            lblCountBanknotesNow.Text = "Количество купюр в банкомате      " + ATM.TotalBanknotesCount;
+            lblSumInATMNow.Text = "Сумма в банкомате      " + ATM.TotalMoney;
+            ShowForATMState();
+        }
+
+
+        private void btn5_OK_Click(object sender, EventArgs e)
+        {
+            if (UserName == "Админ")
+            {
+                ShowForAdmin();
+                return;
+            }
+
+            if (!ATM.Users.Keys.Contains(UserName))
+            {
+                ShowForUnknownUser();
+            }
+            else
+            {
+                ShowForLoginedUser();
+            }
+        }
+
+        private void btnChangeUser_Click(object sender, EventArgs e)
+        {
+            ShowForChangedUser();
+        }
+
+        /// <summary>
+        /// Не только для добавить, но и для снять кнопка проверки планируемой суммы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lblPlanSumOnAccAdd_Click(object sender, EventArgs e)
+        {
+            var banknotesByDenominations = CreateBanknotesByDenominations();
+
+            if (lblPlanSumOnAccAdd.Text == "Нажмите на этот текст для проверки вносимой суммы")
+            {
+                AddOnUserAccount(banknotesByDenominations);
+            }
+            else
+            {
+                WithdrawFromUserAccount(banknotesByDenominations);
+            }
+        }
+
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            var operationIsAddition = lblPlanSumOnAccAdd.Text == "Нажмите на этот текст для проверки вносимой суммы";
+            var banknotesByDenominations = CreateBanknotesByDenominations();
+
+            if (operationIsAddition)
+            {
+                ATM.AddMoney(UserName, banknotesByDenominations);
+            }
+            else
+            {
+                ATM.WithdrawMoney(UserName, banknotesByDenominations);
+            }
+
+            tbSummOnAccNow.Text = ATM.Users[UserName].ToString();
+
+            tbSumIntoAcc.Visible = false;
+            lblPlanSumOnAccAdd.Visible = false;
+            NumericVisibleNo();
+            btnConfirm.Enabled = false;
+        }
+
+        private void AddOnUserAccount(BanknotesByDenominations banknotesByDenominations)
+        {
+            var banknotesToAddCount = banknotesByDenominations.GetTotalBanknotesCount();
+            if (ATM.TotalBanknotesCount + banknotesToAddCount > ATM.GetMaxBanknotesCapacity())
+            {
+                tbSumIntoAcc.Visible = true;
+                tbSumIntoAcc.Text = "Банкомат переполнен  ";
+                btnConfirm.Enabled = false;
+                btnConfirm.Visible = false;
+            }
+            else
+            {
+                tbSumIntoAcc.Text = banknotesByDenominations.GetPlanSumToAddOrWithdraw().ToString();
+                btnConfirm.Visible = true;
+                tbSumIntoAcc.Visible = true;
+            }
+        }
+
+        private void WithdrawFromUserAccount(BanknotesByDenominations banknotesByDenominations)
+        {
+            var sumToWithdraw = banknotesByDenominations.GetPlanSumToAddOrWithdraw();
+            int userDepositValue = ATM.Users[UserName];
+
+            if (sumToWithdraw > userDepositValue)
+            {
+                tbSumIntoAcc.Visible = true;
+                tbSumIntoAcc.Text = "На счете недостаточно средств";
+                btnConfirm.Enabled = false;
+                return;
+            }
+
+            if (sumToWithdraw > ATM.TotalMoney)
+            {
+                tbSumIntoAcc.Visible = true;
+                tbSumIntoAcc.Text = "В банкомате недостаточно наличных";
+                btnConfirm.Enabled = false;
+                return;
+            }
+
+
+            tbSumIntoAcc.Visible = true;
+
+            Dictionary<int, int> banknotesByDenominationsInRequest = banknotesByDenominations.GetCountByDenominations();
+            foreach (var banknotes in banknotesByDenominationsInRequest)
+            {
+                if (banknotes.Value != 0 &&
+                    banknotes.Value > ATM.FindBanknotes(banknotes.Key))
+                {
+                    tbSumIntoAcc.Text = $"Недостаточно запрашиваемых купюр по {banknotes.Key} рублей";
+                    btnConfirm.Visible = false;
+                    lblPlanSumOnAccAdd.Visible = false;
+                    return;
+                }
+            }
+
+            tbSumIntoAcc.Visible = true;
+            tbSumIntoAcc.Text = banknotesByDenominations.GetPlanSumToAddOrWithdraw().ToString();
+            btnConfirm.Visible = true;
+        }
+
+        private void ShowForAdmin()
+        {
+            LblNominalVisibleNo();
+            NumericVisibleNo();
+            lblHello.Text = "Проверка разрешена ";
+            btn1inputMoney.Visible = false;
+            btn8moneyInHide.Visible = true;
+            btn3outMoney.Visible = false;
+            btn7moneyOutHide.Visible = true;
+            btn4showATM.Visible = true;
+            btn5_OK.Visible = false;
+            btn6hideShowAtm.Visible = false;
+            btn9hideUserName.Visible = true;
+            btn4showATM.Enabled = true;
+            lblMoneyDeposit.Visible = false;
+            lblChooseBanknotes.Visible = false;
+            lblPlanSumOnAccAdd.Visible = false;
+            tbSumIntoAcc.Visible = false;
+            btnConfirm.Visible = false;
+            lblnumber.Visible = false;
+            lblDate.Visible = false;
+            lblCapacity.Visible = false;
+            lblSumInATMNow.Visible = false;
+            lblCountBanknotesNow.Visible = false;
+            lblTitleSumOnAcc.Visible = false;
+            tbSummOnAccNow.Visible = false;
+            lblAllRangeBancnotesInATV.Visible = false;
+            tbBancnotesCountInRange.Visible = false;
+        }
+
+        private void ShowForUnknownUser()
+        {
+            LblNominalVisibleNo();
+            NumericVisibleNo();
+            lblHello.Text = "В доступе отказано ";
+            btn1inputMoney.Visible = false;
+            btn8moneyInHide.Visible = true;
+            btn3outMoney.Visible = false;
+            btn7moneyOutHide.Visible = true;
+            btn4showATM.Visible = false;
+            btn6hideShowAtm.Visible = true;
+            btn5_OK.Visible = true;
+            btn9hideUserName.Visible = false;
+            lblMoneyDeposit.Visible = false;
+            lblChooseBanknotes.Visible = false;
+            lblPlanSumOnAccAdd.Visible = false;
+            tbSumIntoAcc.Visible = false;
+            lblnumber.Visible = false;
+            lblDate.Visible = false;
+            lblCapacity.Visible = false;
+            btnConfirm.Visible = false;
+            lblSumInATMNow.Visible = false;
+            lblCountBanknotesNow.Visible = false;
+            lblTitleSumOnAcc.Visible = false;
+            tbSummOnAccNow.Visible = false;
+            lblAllRangeBancnotesInATV.Visible = false;
+            tbBancnotesCountInRange.Visible = false;
+        }
+
+        private void ShowForLoginedUser()
+        {
+            LblNominalVisibleYes();
+            NumericVisibleNo();
+            lblHello.Text = "Здравствуйте,    " + UserName;
+
+            btn1inputMoney.Visible = true;
+            btn3outMoney.Visible = true;
+            btn4showATM.Visible = false;
+            btn5_OK.Visible = false;
+            btn6hideShowAtm.Visible = true;
+            btn7moneyOutHide.Visible = false;
+            btn8moneyInHide.Visible = false;
+            btn9hideUserName.Visible = true;
+            btnConfirm.Visible = false;
+            btn3outMoney.Enabled = true;
+            btn1inputMoney.Enabled = true;
+
+            lblMoneyDeposit.Visible = false;
+            lblChooseBanknotes.Visible = true;
+            lblPlanSumOnAccAdd.Visible = true;
+            lblAllRangeBancnotesInATV.Visible = false;
+            lblnumber.Visible = false;
+            lblDate.Visible = false;
+            lblCapacity.Visible = false;
+            lblSumInATMNow.Visible = false;
+            lblCountBanknotesNow.Visible = false;
+            lblTitleSumOnAcc.Visible = true;
+
+            tbSumIntoAcc.Visible = true;
+            tbSummOnAccNow.Visible = true;
+            tbSummOnAccNow.Text = ATM.Users[UserName].ToString();
+            tbBancnotesCountInRange.Visible = false;
+        }
+
+        private void ShowForATMState()
+        {
+            lblSumInATMNow.Visible = true;
+            lblnumber.Visible = true;
+            lblDate.Visible = true;
+            lblCapacity.Visible = true;
+            lblCountBanknotesNow.Visible = true;
+            lblPlanSumOnAccAdd.Visible = false;
+            lblAllRangeBancnotesInATV.Visible = true;
+            tbBancnotesCountInRange.Visible = true;
+            tbSumIntoAcc.Visible = false;
+            btnConfirm.Visible = false;
+        }
+
+        private void InitializeVisibilities()
+        {
             lblMoneyDeposit.Visible = false;
             lblChooseBanknotes.Visible = false;
             lblPlanSumOnAccAdd.Visible = false;
@@ -100,132 +379,7 @@ namespace ATM
             btn4showATM.Enabled = false;
         }
 
-        private void btn1inputMoney_Click(object sender, EventArgs e)
-        {
-            NumericVisibleYes();
-            NumericValue_0();
-            tbSumIntoAcc.Visible = true;
-            lblPlanSumOnAccAdd.Visible = true;
-            lblPlanSumOnAccAdd.Text = "Нажмите для проверки \r\nвносимой суммы";
-            lblMoneyDeposit.Visible = true;
-            lblMoneyDeposit.Text = "Выполняется операция по внесению наличных";
-            tbSumIntoAcc.Text = String.Empty;
-            btnConfirm.Enabled = true;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void btn3outMoney_Click(object sender, EventArgs e)
-        {
-            NumericVisibleYes();
-            NumericValue_0();
-            tbSumIntoAcc.Visible = true;
-            lblPlanSumOnAccAdd.Visible = true;
-            lblPlanSumOnAccAdd.Text = "Нажмите для проверки \r\nвыводимой суммы";
-            lblMoneyDeposit.Text = "Выполняется операция по снятию наличных";
-            lblMoneyDeposit.Visible = true;
-            tbSumIntoAcc.Text = String.Empty;
-            btnConfirm.Enabled = true;
-        }
-
-        private void btn4showATM_Click(object sender, EventArgs e)
-        {
-            lblDate.Text = ATM.GetDate();
-            lblnumber.Text = ATM.GetATMNumber();
-            lblCapacity.Text = ATM.GetMaxBanknotesCapacityToString();
-
-            tbBancnotesCountInRange.Text = ATM.ShowState();
-            lblCountBanknotesNow.Text = "Количество купюр в банкомате      " + ATM.TotalBanknotesCount;
-            lblSumInATMNow.Text = "Сумма в банкомате      " + ATM.TotalMoney;
-            lblSumInATMNow.Visible = true;
-            lblnumber.Visible = true;
-            lblDate.Visible = true;
-            lblCapacity.Visible = true;
-            lblCountBanknotesNow.Visible = true;
-            lblPlanSumOnAccAdd.Visible = false;
-            lblAllRangeBancnotesInATV.Visible = true;
-            tbBancnotesCountInRange.Visible = true;
-            tbSumIntoAcc.Visible = false;
-            btnConfirm.Visible = false;
-        }
-
-
-        private void btn5_OK_Click(object sender, EventArgs e)
-        {
-            if (UserName == "Админ")
-            {
-                ShowForAdmin();
-                return;
-            }
-
-            if (!ATM.Users.Keys.Contains(UserName))
-            {
-                LblNominalVisibleNo();
-                NumericVisibleNo();
-                lblHello.Text = "В доступе отказано ";
-                btn1inputMoney.Visible = false;
-                btn8moneyInHide.Visible = true;
-                btn3outMoney.Visible = false;
-                btn7moneyOutHide.Visible = true;
-                btn4showATM.Visible = false;
-                btn6hideShowAtm.Visible = true;
-                btn5_OK.Visible = true;
-                btn9hideUserName.Visible = false;
-                lblMoneyDeposit.Visible = false;
-                lblChooseBanknotes.Visible = false;
-                lblPlanSumOnAccAdd.Visible = false;
-                tbSumIntoAcc.Visible = false;
-                lblnumber.Visible = false;
-                lblDate.Visible = false;
-                lblCapacity.Visible = false;
-                btnConfirm.Visible = false;
-                lblSumInATMNow.Visible = false;
-                lblCountBanknotesNow.Visible = false;
-                lblTitleSumOnAcc.Visible = false;
-                tbSummOnAccNow.Visible = false;
-                lblAllRangeBancnotesInATV.Visible = false;
-                tbBancnotesCountInRange.Visible = false;
-            }
-            else
-            {
-                LblNominalVisibleYes();
-                NumericVisibleNo();
-                lblHello.Text = "Здравствуйте,    " + UserName;
-
-                btn1inputMoney.Visible = true;
-                btn3outMoney.Visible = true;
-                btn4showATM.Visible = false;
-                btn5_OK.Visible = false;
-                btn6hideShowAtm.Visible = true;
-                btn7moneyOutHide.Visible = false;
-                btn8moneyInHide.Visible = false;
-                btn9hideUserName.Visible = true;
-                btnConfirm.Visible = false;
-                btn3outMoney.Enabled = true;
-                btn1inputMoney.Enabled = true;
-
-                lblMoneyDeposit.Visible = false;
-                lblChooseBanknotes.Visible = true;
-                lblPlanSumOnAccAdd.Visible = true;
-                lblAllRangeBancnotesInATV.Visible = false;
-                lblnumber.Visible = false;
-                lblDate.Visible = false;
-                lblCapacity.Visible = false;
-                lblSumInATMNow.Visible = false;
-                lblCountBanknotesNow.Visible = false;
-                lblTitleSumOnAcc.Visible = true;
-
-                tbSumIntoAcc.Visible = true;
-                tbSummOnAccNow.Visible = true;
-                tbSummOnAccNow.Text = ATM.Users[UserName].ToString();
-                tbBancnotesCountInRange.Visible = false;
-            }
-        }
-
-        private void btnChangeUser_Click(object sender, EventArgs e)
+        private void ShowForChangedUser()
         {
             lblHello.Text = String.Concat("Здравствуйте,              Гость", "\n", "Введите Логин  и нажмите OK");
             NumericVisibleNo();
@@ -257,127 +411,6 @@ namespace ATM
             tbSumIntoAcc.Text = null;
             tbSumIntoAcc.Visible = false;
             tbSummOnAccNow.Visible = false;
-            tbBancnotesCountInRange.Visible = false;
-
-
-        }
-
-        /// <summary>
-        /// Не только для добавить, но и для снять кнопка проверки планируемой суммы
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void lblPlanSumOnAccAdd_Click(object sender, EventArgs e)
-        {
-            var banknotesByDenominations = CreateBanknotesByDenominations();
-
-            if (lblPlanSumOnAccAdd.Text == "Нажмите для проверки \r\nвносимой суммы")
-            {
-                var banknotesToAddCount = banknotesByDenominations.GetTotalBanknotesCount();
-                if (ATM.TotalBanknotesCount + banknotesToAddCount > ATM.GetMaxBanknotesCapacity())
-                {
-                    tbSumIntoAcc.Visible = true;
-                    tbSumIntoAcc.Text = "Банкомат переполнен  ";
-                    btnConfirm.Visible = false;
-                }
-                else
-                {
-                    tbSumIntoAcc.Text = banknotesByDenominations.GetPlanSumToAddOrWithdraw().ToString();
-                    btnConfirm.Visible = true;
-                    tbSumIntoAcc.Visible = true;
-                }
-                return;
-            }
-
-
-            int sumToWithdraw = banknotesByDenominations.GetPlanSumToAddOrWithdraw();
-            int userDepositValue = ATM.Users[UserName];
-
-            if (sumToWithdraw > userDepositValue)
-            {
-                tbSumIntoAcc.Visible = true;
-                tbSumIntoAcc.Text = "На счете недостаточно средств";
-                return;
-            }
-
-            if (sumToWithdraw > ATM.TotalMoney)
-            {
-                tbSumIntoAcc.Visible = true;
-                tbSumIntoAcc.Text = "В банкомате недостаточно наличных";
-                return;
-            }
-
-
-            tbSumIntoAcc.Visible = true;
-
-            Dictionary<int, int> banknotesByDenominationsInRequest = banknotesByDenominations.GetCountByDenominations();
-            foreach (var banknotes in banknotesByDenominationsInRequest)
-            {
-                if (banknotes.Value != 0 &&
-                    banknotes.Value > ATM.FindBanknotes(banknotes.Key))
-                {
-                    tbSumIntoAcc.Text = $"Недостаточно запрашиваемых купюр по {banknotes.Key} рублей";
-                    btnConfirm.Visible = false;
-                    lblPlanSumOnAccAdd.Visible = false;
-                    return;
-                }
-            }
-
-            tbSumIntoAcc.Visible = true;
-            tbSumIntoAcc.Text = banknotesByDenominations.GetPlanSumToAddOrWithdraw().ToString();
-            btnConfirm.Visible = true;
-        }
-
-        private void btnConfirm_Click(object sender, EventArgs e)
-        {
-            var operationIsAddition = lblPlanSumOnAccAdd.Text == "Нажмите для проверки \r\nвносимой суммы";
-            var banknotesByDenominations = CreateBanknotesByDenominations();
-
-            if (operationIsAddition)
-            {
-                ATM.AddMoney(UserName, banknotesByDenominations);
-            }
-            else
-            {
-                ATM.WithdrawMoney(UserName, banknotesByDenominations);
-            }
-
-            tbSummOnAccNow.Text = ATM.Users[UserName].ToString();
-
-            tbSumIntoAcc.Visible = false;
-            lblPlanSumOnAccAdd.Visible = false;
-            NumericVisibleNo();
-            btnConfirm.Enabled = false;
-        }
-
-
-        private void ShowForAdmin()
-        {
-            LblNominalVisibleNo();
-            NumericVisibleNo();
-            lblHello.Text = "Проверка разрешена ";
-            btn1inputMoney.Visible = false;
-            btn8moneyInHide.Visible = true;
-            btn3outMoney.Visible = false;
-            btn7moneyOutHide.Visible = true;
-            btn4showATM.Visible = true;
-            btn5_OK.Visible = false;
-            btn6hideShowAtm.Visible = false;
-            btn9hideUserName.Visible = true;
-            btn4showATM.Enabled = true;
-            lblMoneyDeposit.Visible = false;
-            lblChooseBanknotes.Visible = false;
-            lblPlanSumOnAccAdd.Visible = false;
-            tbSumIntoAcc.Visible = false;
-            btnConfirm.Visible = false;
-            lblnumber.Visible = false;
-            lblDate.Visible = false;
-            lblCapacity.Visible = false;
-            lblSumInATMNow.Visible = false;
-            lblCountBanknotesNow.Visible = false;
-            lblTitleSumOnAcc.Visible = false;
-            tbSummOnAccNow.Visible = false;
-            lblAllRangeBancnotesInATV.Visible = false;
             tbBancnotesCountInRange.Visible = false;
         }
 

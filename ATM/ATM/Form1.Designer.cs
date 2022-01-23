@@ -207,12 +207,12 @@ namespace ATM
             this.lblMoneyDeposit.TabIndex = 13;
             this.lblMoneyDeposit.Text = "Выполняется операция по внесению наличных";
             // 
-            // lblChoosBancnotes
+            // lblChooseBanknotes
             // 
             this.lblChooseBanknotes.AutoSize = true;
             this.lblChooseBanknotes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblChooseBanknotes.Location = new System.Drawing.Point(444, 87);
-            this.lblChooseBanknotes.Name = "lblChoosBancnotes";
+            this.lblChooseBanknotes.Name = "lblChooseBanknotes";
             this.lblChooseBanknotes.Size = new System.Drawing.Size(291, 38);
             this.lblChooseBanknotes.TabIndex = 14;
             this.lblChooseBanknotes.Text = "Выберите  достоинство купюр в левом поле\r\nи введите количество в правом";
@@ -355,11 +355,11 @@ namespace ATM
             // 
             // lblPlanSumOnAccAdd
             // 
-            this.lblPlanSumOnAccAdd.Location = new System.Drawing.Point(700, 135);
+            this.lblPlanSumOnAccAdd.Location = new System.Drawing.Point(737, 125);
             this.lblPlanSumOnAccAdd.Name = "lblPlanSumOnAccAdd";
-            this.lblPlanSumOnAccAdd.Size = new System.Drawing.Size(146, 36);
+            this.lblPlanSumOnAccAdd.Size = new System.Drawing.Size(221, 38);
             this.lblPlanSumOnAccAdd.TabIndex = 31;
-            this.lblPlanSumOnAccAdd.Text = "Нажмите для проверки \r\n";
+            this.lblPlanSumOnAccAdd.Text = "Нажмите на этот текст для проверки \r\nвносимой суммы\r\n";
             this.lblPlanSumOnAccAdd.Click += new System.EventHandler(this.lblPlanSumOnAccAdd_Click);
             // 
             // tbSumIntoAcc
