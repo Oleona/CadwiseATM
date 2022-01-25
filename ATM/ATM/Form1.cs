@@ -115,7 +115,7 @@ namespace ATM
         private void btn4showATM_Click(object sender, EventArgs e)
         {
             lblDate.Text = ATM.GetDate();
-            lblnumber.Text = ATM.GetATMNumber();
+            lblnumber.Text = ATM.SerialNumber;
             lblCapacity.Text = ATM.GetMaxBanknotesCapacityToString();
             tbBancnotesCountInRange.Text = ATM.ShowState();
             lblCountBanknotesNow.Text = "Количество купюр в банкомате      " + ATM.TotalBanknotesCount;
@@ -132,7 +132,7 @@ namespace ATM
                 return;
             }
 
-            if (!ATM.Users.Keys.Contains(UserName))
+            if (ATM.GetUserInfo(UserName).Name == "Неизвестный пользователь")
             {
                 ShowForUnknownUser();
             }
@@ -180,7 +180,7 @@ namespace ATM
                 ATM.WithdrawMoney(UserName, banknotesByDenominations);
             }
 
-            tbSummOnAccNow.Text = ATM.Users[UserName].ToString();
+            tbSummOnAccNow.Text = ATM.GetUserInfo(UserName).Name;
 
             tbSumIntoAcc.Visible = false;
             lblPlanSumOnAccAdd.Visible = false;
@@ -190,8 +190,8 @@ namespace ATM
 
         private void AddOnUserAccount(BanknotesByDenominations banknotesByDenominations)
         {
-            var banknotesToAddCount = banknotesByDenominations.GetTotalBanknotesCount();
-            if (ATM.TotalBanknotesCount + banknotesToAddCount > ATM.GetMaxBanknotesCapacity())
+            var banknotesToAddCount = banknotesByDenominations.TotalBanknotesCount;
+            if (ATM.TotalBanknotesCount + banknotesToAddCount > ATM.MaxBanknotesCapacity)
             {
                 tbSumIntoAcc.Visible = true;
                 tbSumIntoAcc.Text = "Банкомат переполнен  ";
@@ -200,7 +200,7 @@ namespace ATM
             }
             else
             {
-                tbSumIntoAcc.Text = banknotesByDenominations.GetPlanSumToAddOrWithdraw().ToString();
+                tbSumIntoAcc.Text = banknotesByDenominations.PlanSumToAddOrWithdraw.ToString();
                 btnConfirm.Visible = true;
                 tbSumIntoAcc.Visible = true;
             }
@@ -208,8 +208,8 @@ namespace ATM
 
         private void WithdrawFromUserAccount(BanknotesByDenominations banknotesByDenominations)
         {
-            var sumToWithdraw = banknotesByDenominations.GetPlanSumToAddOrWithdraw();
-            int userDepositValue = ATM.Users[UserName];
+            var sumToWithdraw = banknotesByDenominations.PlanSumToAddOrWithdraw;
+            int userDepositValue = ATM.GetUserInfo(UserName).DepositValue;
 
             if (sumToWithdraw > userDepositValue)
             {
@@ -230,7 +230,7 @@ namespace ATM
 
             tbSumIntoAcc.Visible = true;
 
-            Dictionary<int, int> banknotesByDenominationsInRequest = banknotesByDenominations.GetCountByDenominations();
+            Dictionary<int, int> banknotesByDenominationsInRequest = banknotesByDenominations.CountByDenominations;
             foreach (var banknotes in banknotesByDenominationsInRequest)
             {
                 if (banknotes.Value != 0 &&
@@ -244,7 +244,7 @@ namespace ATM
             }
 
             tbSumIntoAcc.Visible = true;
-            tbSumIntoAcc.Text = banknotesByDenominations.GetPlanSumToAddOrWithdraw().ToString();
+            tbSumIntoAcc.Text = banknotesByDenominations.PlanSumToAddOrWithdraw.ToString();
             btnConfirm.Visible = true;
         }
 
@@ -338,7 +338,7 @@ namespace ATM
 
             tbSumIntoAcc.Visible = true;
             tbSummOnAccNow.Visible = true;
-            tbSummOnAccNow.Text = ATM.Users[UserName].ToString();
+            tbSummOnAccNow.Text = ATM.GetUserInfo(UserName).Name;
             tbBancnotesCountInRange.Visible = false;
         }
 
@@ -414,15 +414,16 @@ namespace ATM
             tbBancnotesCountInRange.Visible = false;
         }
 
-        private BanknotesByDenominations CreateBanknotesByDenominations() => new(
-                RublesCount10,
-                RublesCount50,
-                RublesCount100,
-                RublesCount200,
-                RublesCount500,
-                RublesCount1000,
-                RublesCount2000,
-                RublesCount5000
-                );
+        private BanknotesByDenominations CreateBanknotesByDenominations() => 
+            new(new Dictionary<int, int> {
+                {Denominations.R10, RublesCount10 },
+                {Denominations.R50, RublesCount50 },
+                {Denominations.R100, RublesCount100 },
+                {Denominations.R200, RublesCount200 },
+                {Denominations.R500, RublesCount500 },
+                {Denominations.R1000, RublesCount1000 },
+                {Denominations.R2000, RublesCount2000 },
+                {Denominations.R5000, RublesCount5000 },
+            });
     }
 }

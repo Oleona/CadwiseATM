@@ -9,13 +9,10 @@ namespace ATM
     {
         public static void AddMoney(string userName, BanknotesByDenominations banknotes)
         {
-            Dictionary<int, int> banknotesByDenominationsInRequest = banknotes.GetCountByDenominations();
+            Dictionary<int, int> banknotesByDenominationsInRequest = banknotes.CountByDenominations;
 
-            var sumToAdd = banknotes.GetPlanSumToAddOrWithdraw();        
+            var sumToAdd = banknotes.PlanSumToAddOrWithdraw;        
             Users[userName] += sumToAdd;
-            
-            TotalMoney += sumToAdd;    
-            TotalBanknotesCount += banknotes.GetTotalBanknotesCount();
             
             banknotesByDenomination = banknotesByDenomination.ToDictionary(
                 orig => orig.Key,
@@ -25,13 +22,10 @@ namespace ATM
 
         public static void WithdrawMoney(string userName, BanknotesByDenominations banknotes)
         {
-            Dictionary<int, int> banknotesByDenominationsInRequest = banknotes.GetCountByDenominations();
+            Dictionary<int, int> banknotesByDenominationsInRequest = banknotes.CountByDenominations;
 
-            var sumToWithdraw = banknotes.GetPlanSumToAddOrWithdraw();
+            var sumToWithdraw = banknotes.PlanSumToAddOrWithdraw;
             Users[userName] -= sumToWithdraw;
-            
-            TotalMoney -= sumToWithdraw;
-            TotalBanknotesCount -= banknotes.GetTotalBanknotesCount();
 
             banknotesByDenomination = banknotesByDenomination.ToDictionary(
                 orig => orig.Key,
@@ -62,7 +56,35 @@ namespace ATM
             return 0;
         }
 
-        public static Dictionary<string, int> Users = new Dictionary<string, int>()
+        public static (string Name, int DepositValue) GetUserInfo(string userName)
+        {
+            if (!Users.ContainsKey(userName))
+            {
+                return ("Неизвестный пользователь", 0);
+            }
+
+            return (userName, Users[userName]);
+        }
+
+        public static int TotalBanknotesCount => banknotesByDenomination.Sum(b => b.Value);
+
+        public static int TotalMoney => banknotesByDenomination.Sum(b => b.Key * b.Value);
+
+        public static int MaxBanknotesCapacity => 150;
+
+        public static string SerialNumber => "ATM № 123456/1122";
+
+
+        public static string GetDate()
+        {
+            DateTime curDate = DateTime.Now;
+            return string.Concat("Дата и время проверки ", "\n", curDate.ToShortDateString(), " ", curDate.ToLongTimeString());
+        }
+
+        public static string GetMaxBanknotesCapacityToString()
+            => string.Concat("\n", "Максимальное количество \r\nхранимых купюр  ", MaxBanknotesCapacity.ToString());
+
+        private static readonly Dictionary<string, int> Users = new Dictionary<string, int>()
         {
             { "Иван", 20000 } ,
             { "Василий", 25000 },
@@ -75,40 +97,16 @@ namespace ATM
             { "Михаил", 70500 }
         };
 
-        private const string SerialNumber = "ATM № 123456/1122";
-        private const int MaxBanknotesCapacity = 150;
-
-        public static int TotalBanknotesCount = 0;
-
-        public static int TotalMoney = 0;
-
-
-
-        public static int GetMaxBanknotesCapacity() => MaxBanknotesCapacity;
-
-        public static string GetATMNumber() => SerialNumber;
-
-
-        public static string GetDate()
+        private static Dictionary<int, int> banknotesByDenomination = new()
         {
-            DateTime curDate = DateTime.Now;
-            return string.Concat("Дата и время проверки ", "\n", curDate.ToShortDateString(), " ", curDate.ToLongTimeString());
-        }
-
-        public static string GetMaxBanknotesCapacityToString()
-            => string.Concat("\n", "Максимальное количество \r\nхранимых купюр  ", MaxBanknotesCapacity.ToString());
-
-
-        private static Dictionary<int, int> banknotesByDenomination = new Dictionary<int, int>
-        {
-            [10] = 0,
-            [50] = 0,
-            [100] = 0,
-            [200] = 0,
-            [500] = 0,
-            [1000] = 0,
-            [2000] = 0,
-            [5000] = 0,
+            [Denominations.R10] = 0,
+            [Denominations.R50] = 0,
+            [Denominations.R100] = 0,
+            [Denominations.R200] = 0,
+            [Denominations.R500] = 0,
+            [Denominations.R1000] = 0,
+            [Denominations.R2000] = 0,
+            [Denominations.R5000] = 0,
         };
     }
 }
