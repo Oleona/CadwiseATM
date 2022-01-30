@@ -11,9 +11,9 @@ namespace ATM
         {
             Dictionary<int, int> banknotesByDenominationsInRequest = banknotes.CountByDenominations;
 
-            var sumToAdd = banknotes.PlanSumToAddOrWithdraw;        
+            var sumToAdd = banknotes.PlanSumToAddOrWithdraw;
             Users[userName] += sumToAdd;
-            
+
             banknotesByDenomination = banknotesByDenomination.ToDictionary(
                 orig => orig.Key,
                 orig => orig.Value + banknotesByDenominationsInRequest[orig.Key]
@@ -34,6 +34,65 @@ namespace ATM
         }
 
 
+        public static bool WithdrawMoneySomehow(int sumToWithdraw, string userName)
+        {
+            for (int i = 0; i < Denominations.AllDenominations.Count; i++)
+            {
+                var withdrawSuccessed = WithdrawMoneySomehow(sumToWithdraw, userName, currentDenominationIndex: i);
+                if (withdrawSuccessed)
+                {
+                    Users[userName] -= sumToWithdraw;
+                    return true;
+                }
+            }
+ 
+
+            return false;
+        }
+
+        public static bool WithdrawMoneySomehow(int sumToWithdraw, string userName, int currentDenominationIndex)
+        {
+            if (currentDenominationIndex < 0)
+            {
+                return false;
+            }
+
+            if (sumToWithdraw == 0)
+            {
+                return true;
+            }
+
+            var currentDenomination = Denominations.AllDenominations[currentDenominationIndex];
+            var currentDenominationInAtm = banknotesByDenomination[currentDenomination];
+
+            if (currentDenominationIndex == 0)
+            {
+                var canBeObtainedWithBanknote = sumToWithdraw % currentDenomination == 0;
+                var hasEnoughBanknotes = sumToWithdraw / currentDenomination <= currentDenominationInAtm;
+
+                if (canBeObtainedWithBanknote && hasEnoughBanknotes)
+                {
+                    banknotesByDenomination[currentDenomination] -= sumToWithdraw / currentDenomination;
+                    return true;
+                }
+
+                return false;
+            }
+
+            for (int count = 1; count <= currentDenominationInAtm; count++)
+            {
+                int remainder = sumToWithdraw - count * currentDenomination;
+                if (WithdrawMoneySomehow(remainder, userName, currentDenominationIndex - 1))
+                {
+                    banknotesByDenomination[currentDenomination] -= count;
+                    return true;
+                }
+            }
+
+            return WithdrawMoneySomehow(sumToWithdraw, userName, currentDenominationIndex - 1);
+        }
+
+
         public static string ShowState()
         {
             var sb = new StringBuilder();
@@ -46,7 +105,7 @@ namespace ATM
             return sb.ToString();
         }
 
-        public static int FindBanknotes(int denomination)
+        public static int FindBanknotesCount(int denomination)
         {
             if (banknotesByDenomination.Keys.Contains(denomination))
             {

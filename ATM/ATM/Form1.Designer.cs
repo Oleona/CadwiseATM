@@ -1,7 +1,7 @@
 ﻿
 namespace ATM
 {
-    partial class Form1
+    partial class AtmForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -43,42 +43,48 @@ namespace ATM
             this.btnChangeUser = new System.Windows.Forms.Button();
             this.lblMoneyDeposit = new System.Windows.Forms.Label();
             this.lblChooseBanknotes = new System.Windows.Forms.Label();
-            this.lbl5000 = new System.Windows.Forms.Label();
-            this.lbl2000 = new System.Windows.Forms.Label();
-            this.lbl1000 = new System.Windows.Forms.Label();
-            this.lbl500 = new System.Windows.Forms.Label();
-            this.lbl200 = new System.Windows.Forms.Label();
-            this.lbl100 = new System.Windows.Forms.Label();
-            this.lbl50 = new System.Windows.Forms.Label();
-            this.lbl10 = new System.Windows.Forms.Label();
-            this.numericUpDown5000 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2000 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1000 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown500 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown200 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown100 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown50 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
+            this.lbl5000Rubbles = new System.Windows.Forms.Label();
+            this.lbl2000Rubbles = new System.Windows.Forms.Label();
+            this.lbl1000Rubbles = new System.Windows.Forms.Label();
+            this.lbl500Rubbles = new System.Windows.Forms.Label();
+            this.lbl200Rubbles = new System.Windows.Forms.Label();
+            this.lbl100Rubbles = new System.Windows.Forms.Label();
+            this.lbl50Rubbles = new System.Windows.Forms.Label();
+            this.lbl10Rubbles = new System.Windows.Forms.Label();
+            this.num5000Rubbles = new System.Windows.Forms.NumericUpDown();
+            this.num2000Rubbles = new System.Windows.Forms.NumericUpDown();
+            this.num1000Rubbles = new System.Windows.Forms.NumericUpDown();
+            this.num500Rubbles = new System.Windows.Forms.NumericUpDown();
+            this.num200Rubbles = new System.Windows.Forms.NumericUpDown();
+            this.num100Rubbles = new System.Windows.Forms.NumericUpDown();
+            this.num50Rubbles = new System.Windows.Forms.NumericUpDown();
+            this.num10Rubbles = new System.Windows.Forms.NumericUpDown();
             this.lblPlanSumOnAccAdd = new System.Windows.Forms.Label();
             this.tbSumIntoAcc = new System.Windows.Forms.TextBox();
-            this.lblCapacity = new System.Windows.Forms.Label();
-            this.lblnumber = new System.Windows.Forms.Label();
-            this.lblDate = new System.Windows.Forms.Label();
+            this.lblAtmCapacity = new System.Windows.Forms.Label();
+            this.lblAtmNumber = new System.Windows.Forms.Label();
+            this.lblCurrentDate = new System.Windows.Forms.Label();
             this.lblSumInATMNow = new System.Windows.Forms.Label();
-            this.btnConfirm = new System.Windows.Forms.Button();
+            this.btnConfirmSum = new System.Windows.Forms.Button();
             this.lblCountBanknotesNow = new System.Windows.Forms.Label();
             this.tbSummOnAccNow = new System.Windows.Forms.TextBox();
             this.lblTitleSumOnAcc = new System.Windows.Forms.Label();
             this.tbBancnotesCountInRange = new System.Windows.Forms.TextBox();
             this.lblAllRangeBancnotesInATV = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5000)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2000)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1000)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown500)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown200)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown100)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown50)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
+            this.lblChoiceAmountWithdraw = new System.Windows.Forms.Label();
+            this.numWithdrawAmount = new System.Windows.Forms.NumericUpDown();
+            this.btnConfirmWithdrawalAmount = new System.Windows.Forms.Button();
+            this.tbResultWithdrawn = new System.Windows.Forms.TextBox();
+            this.lblWithdrawResult = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.num5000Rubbles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num2000Rubbles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num1000Rubbles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num500Rubbles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num200Rubbles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num100Rubbles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num50Rubbles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num10Rubbles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWithdrawAmount)).BeginInit();
             this.SuspendLayout();
             // 
             // btn1inputMoney
@@ -201,7 +207,7 @@ namespace ATM
             // 
             this.lblMoneyDeposit.AutoSize = true;
             this.lblMoneyDeposit.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblMoneyDeposit.Location = new System.Drawing.Point(435, 40);
+            this.lblMoneyDeposit.Location = new System.Drawing.Point(526, 103);
             this.lblMoneyDeposit.Name = "lblMoneyDeposit";
             this.lblMoneyDeposit.Size = new System.Drawing.Size(308, 19);
             this.lblMoneyDeposit.TabIndex = 13;
@@ -210,152 +216,152 @@ namespace ATM
             // lblChooseBanknotes
             // 
             this.lblChooseBanknotes.AutoSize = true;
-            this.lblChooseBanknotes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblChooseBanknotes.Location = new System.Drawing.Point(444, 87);
+            this.lblChooseBanknotes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblChooseBanknotes.Location = new System.Drawing.Point(391, 128);
             this.lblChooseBanknotes.Name = "lblChooseBanknotes";
-            this.lblChooseBanknotes.Size = new System.Drawing.Size(291, 38);
+            this.lblChooseBanknotes.Size = new System.Drawing.Size(252, 30);
             this.lblChooseBanknotes.TabIndex = 14;
             this.lblChooseBanknotes.Text = "Выберите  достоинство купюр в левом поле\r\nи введите количество в правом";
             // 
-            // lbl5000
+            // lbl5000Rubbles
             // 
-            this.lbl5000.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbl5000.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl5000.Location = new System.Drawing.Point(453, 412);
-            this.lbl5000.Name = "lbl5000";
-            this.lbl5000.Size = new System.Drawing.Size(55, 25);
-            this.lbl5000.TabIndex = 22;
-            this.lbl5000.Text = "5000";
+            this.lbl5000Rubbles.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbl5000Rubbles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl5000Rubbles.Location = new System.Drawing.Point(391, 437);
+            this.lbl5000Rubbles.Name = "lbl5000Rubbles";
+            this.lbl5000Rubbles.Size = new System.Drawing.Size(55, 25);
+            this.lbl5000Rubbles.TabIndex = 22;
+            this.lbl5000Rubbles.Text = "5000";
             // 
-            // lbl2000
+            // lbl2000Rubbles
             // 
-            this.lbl2000.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbl2000.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl2000.Location = new System.Drawing.Point(453, 372);
-            this.lbl2000.Name = "lbl2000";
-            this.lbl2000.Size = new System.Drawing.Size(55, 25);
-            this.lbl2000.TabIndex = 21;
-            this.lbl2000.Text = "2000";
+            this.lbl2000Rubbles.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbl2000Rubbles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl2000Rubbles.Location = new System.Drawing.Point(391, 397);
+            this.lbl2000Rubbles.Name = "lbl2000Rubbles";
+            this.lbl2000Rubbles.Size = new System.Drawing.Size(55, 25);
+            this.lbl2000Rubbles.TabIndex = 21;
+            this.lbl2000Rubbles.Text = "2000";
             // 
-            // lbl1000
+            // lbl1000Rubbles
             // 
-            this.lbl1000.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbl1000.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl1000.Location = new System.Drawing.Point(453, 335);
-            this.lbl1000.Name = "lbl1000";
-            this.lbl1000.Size = new System.Drawing.Size(55, 25);
-            this.lbl1000.TabIndex = 20;
-            this.lbl1000.Text = "1000";
+            this.lbl1000Rubbles.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbl1000Rubbles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl1000Rubbles.Location = new System.Drawing.Point(391, 360);
+            this.lbl1000Rubbles.Name = "lbl1000Rubbles";
+            this.lbl1000Rubbles.Size = new System.Drawing.Size(55, 25);
+            this.lbl1000Rubbles.TabIndex = 20;
+            this.lbl1000Rubbles.Text = "1000";
             // 
-            // lbl500
+            // lbl500Rubbles
             // 
-            this.lbl500.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbl500.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl500.Location = new System.Drawing.Point(453, 298);
-            this.lbl500.Name = "lbl500";
-            this.lbl500.Size = new System.Drawing.Size(55, 25);
-            this.lbl500.TabIndex = 19;
-            this.lbl500.Text = "500";
+            this.lbl500Rubbles.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbl500Rubbles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl500Rubbles.Location = new System.Drawing.Point(391, 323);
+            this.lbl500Rubbles.Name = "lbl500Rubbles";
+            this.lbl500Rubbles.Size = new System.Drawing.Size(55, 25);
+            this.lbl500Rubbles.TabIndex = 19;
+            this.lbl500Rubbles.Text = "500";
             // 
-            // lbl200
+            // lbl200Rubbles
             // 
-            this.lbl200.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbl200.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl200.Location = new System.Drawing.Point(453, 260);
-            this.lbl200.Name = "lbl200";
-            this.lbl200.Size = new System.Drawing.Size(55, 25);
-            this.lbl200.TabIndex = 18;
-            this.lbl200.Text = "200";
+            this.lbl200Rubbles.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbl200Rubbles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl200Rubbles.Location = new System.Drawing.Point(391, 285);
+            this.lbl200Rubbles.Name = "lbl200Rubbles";
+            this.lbl200Rubbles.Size = new System.Drawing.Size(55, 25);
+            this.lbl200Rubbles.TabIndex = 18;
+            this.lbl200Rubbles.Text = "200";
             // 
-            // lbl100
+            // lbl100Rubbles
             // 
-            this.lbl100.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbl100.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl100.Location = new System.Drawing.Point(453, 222);
-            this.lbl100.Name = "lbl100";
-            this.lbl100.Size = new System.Drawing.Size(55, 25);
-            this.lbl100.TabIndex = 17;
-            this.lbl100.Text = "100";
+            this.lbl100Rubbles.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbl100Rubbles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl100Rubbles.Location = new System.Drawing.Point(391, 247);
+            this.lbl100Rubbles.Name = "lbl100Rubbles";
+            this.lbl100Rubbles.Size = new System.Drawing.Size(55, 25);
+            this.lbl100Rubbles.TabIndex = 17;
+            this.lbl100Rubbles.Text = "100";
             // 
-            // lbl50
+            // lbl50Rubbles
             // 
-            this.lbl50.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbl50.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl50.Location = new System.Drawing.Point(453, 185);
-            this.lbl50.Name = "lbl50";
-            this.lbl50.Size = new System.Drawing.Size(55, 25);
-            this.lbl50.TabIndex = 16;
-            this.lbl50.Text = "50";
+            this.lbl50Rubbles.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbl50Rubbles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl50Rubbles.Location = new System.Drawing.Point(391, 210);
+            this.lbl50Rubbles.Name = "lbl50Rubbles";
+            this.lbl50Rubbles.Size = new System.Drawing.Size(55, 25);
+            this.lbl50Rubbles.TabIndex = 16;
+            this.lbl50Rubbles.Text = "50";
             // 
-            // lbl10
+            // lbl10Rubbles
             // 
-            this.lbl10.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbl10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl10.Location = new System.Drawing.Point(453, 146);
-            this.lbl10.Name = "lbl10";
-            this.lbl10.Size = new System.Drawing.Size(55, 25);
-            this.lbl10.TabIndex = 15;
-            this.lbl10.Text = "10";
+            this.lbl10Rubbles.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbl10Rubbles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl10Rubbles.Location = new System.Drawing.Point(391, 171);
+            this.lbl10Rubbles.Name = "lbl10Rubbles";
+            this.lbl10Rubbles.Size = new System.Drawing.Size(55, 25);
+            this.lbl10Rubbles.TabIndex = 15;
+            this.lbl10Rubbles.Text = "10";
             // 
-            // numericUpDown5000
+            // num5000Rubbles
             // 
-            this.numericUpDown5000.Location = new System.Drawing.Point(572, 413);
-            this.numericUpDown5000.Name = "numericUpDown5000";
-            this.numericUpDown5000.Size = new System.Drawing.Size(72, 23);
-            this.numericUpDown5000.TabIndex = 30;
+            this.num5000Rubbles.Location = new System.Drawing.Point(529, 439);
+            this.num5000Rubbles.Name = "num5000Rubbles";
+            this.num5000Rubbles.Size = new System.Drawing.Size(72, 23);
+            this.num5000Rubbles.TabIndex = 30;
             // 
-            // numericUpDown2000
+            // num2000Rubbles
             // 
-            this.numericUpDown2000.Location = new System.Drawing.Point(572, 374);
-            this.numericUpDown2000.Name = "numericUpDown2000";
-            this.numericUpDown2000.Size = new System.Drawing.Size(72, 23);
-            this.numericUpDown2000.TabIndex = 29;
+            this.num2000Rubbles.Location = new System.Drawing.Point(529, 400);
+            this.num2000Rubbles.Name = "num2000Rubbles";
+            this.num2000Rubbles.Size = new System.Drawing.Size(72, 23);
+            this.num2000Rubbles.TabIndex = 29;
             // 
-            // numericUpDown1000
+            // num1000Rubbles
             // 
-            this.numericUpDown1000.Location = new System.Drawing.Point(572, 336);
-            this.numericUpDown1000.Name = "numericUpDown1000";
-            this.numericUpDown1000.Size = new System.Drawing.Size(72, 23);
-            this.numericUpDown1000.TabIndex = 28;
+            this.num1000Rubbles.Location = new System.Drawing.Point(529, 362);
+            this.num1000Rubbles.Name = "num1000Rubbles";
+            this.num1000Rubbles.Size = new System.Drawing.Size(72, 23);
+            this.num1000Rubbles.TabIndex = 28;
             // 
-            // numericUpDown500
+            // num500Rubbles
             // 
-            this.numericUpDown500.Location = new System.Drawing.Point(572, 300);
-            this.numericUpDown500.Name = "numericUpDown500";
-            this.numericUpDown500.Size = new System.Drawing.Size(72, 23);
-            this.numericUpDown500.TabIndex = 27;
+            this.num500Rubbles.Location = new System.Drawing.Point(529, 326);
+            this.num500Rubbles.Name = "num500Rubbles";
+            this.num500Rubbles.Size = new System.Drawing.Size(72, 23);
+            this.num500Rubbles.TabIndex = 27;
             // 
-            // numericUpDown200
+            // num200Rubbles
             // 
-            this.numericUpDown200.Location = new System.Drawing.Point(572, 262);
-            this.numericUpDown200.Name = "numericUpDown200";
-            this.numericUpDown200.Size = new System.Drawing.Size(72, 23);
-            this.numericUpDown200.TabIndex = 26;
+            this.num200Rubbles.Location = new System.Drawing.Point(529, 288);
+            this.num200Rubbles.Name = "num200Rubbles";
+            this.num200Rubbles.Size = new System.Drawing.Size(72, 23);
+            this.num200Rubbles.TabIndex = 26;
             // 
-            // numericUpDown100
+            // num100Rubbles
             // 
-            this.numericUpDown100.Location = new System.Drawing.Point(572, 224);
-            this.numericUpDown100.Name = "numericUpDown100";
-            this.numericUpDown100.Size = new System.Drawing.Size(72, 23);
-            this.numericUpDown100.TabIndex = 25;
+            this.num100Rubbles.Location = new System.Drawing.Point(529, 250);
+            this.num100Rubbles.Name = "num100Rubbles";
+            this.num100Rubbles.Size = new System.Drawing.Size(72, 23);
+            this.num100Rubbles.TabIndex = 25;
             // 
-            // numericUpDown50
+            // num50Rubbles
             // 
-            this.numericUpDown50.Location = new System.Drawing.Point(572, 186);
-            this.numericUpDown50.Name = "numericUpDown50";
-            this.numericUpDown50.Size = new System.Drawing.Size(72, 23);
-            this.numericUpDown50.TabIndex = 24;
+            this.num50Rubbles.Location = new System.Drawing.Point(529, 212);
+            this.num50Rubbles.Name = "num50Rubbles";
+            this.num50Rubbles.Size = new System.Drawing.Size(72, 23);
+            this.num50Rubbles.TabIndex = 24;
             // 
-            // numericUpDown10
+            // num10Rubbles
             // 
-            this.numericUpDown10.Location = new System.Drawing.Point(572, 148);
-            this.numericUpDown10.Name = "numericUpDown10";
-            this.numericUpDown10.Size = new System.Drawing.Size(72, 23);
-            this.numericUpDown10.TabIndex = 23;
+            this.num10Rubbles.Location = new System.Drawing.Point(529, 174);
+            this.num10Rubbles.Name = "num10Rubbles";
+            this.num10Rubbles.Size = new System.Drawing.Size(72, 23);
+            this.num10Rubbles.TabIndex = 23;
             // 
             // lblPlanSumOnAccAdd
             // 
-            this.lblPlanSumOnAccAdd.Location = new System.Drawing.Point(737, 125);
+            this.lblPlanSumOnAccAdd.Location = new System.Drawing.Point(700, 130);
             this.lblPlanSumOnAccAdd.Name = "lblPlanSumOnAccAdd";
             this.lblPlanSumOnAccAdd.Size = new System.Drawing.Size(221, 38);
             this.lblPlanSumOnAccAdd.TabIndex = 31;
@@ -370,53 +376,53 @@ namespace ATM
             this.tbSumIntoAcc.Size = new System.Drawing.Size(258, 23);
             this.tbSumIntoAcc.TabIndex = 32;
             // 
-            // lblCapacity
+            // lblAtmCapacity
             // 
-            this.lblCapacity.AutoSize = true;
-            this.lblCapacity.CausesValidation = false;
-            this.lblCapacity.Location = new System.Drawing.Point(720, 413);
-            this.lblCapacity.Name = "lblCapacity";
-            this.lblCapacity.Size = new System.Drawing.Size(51, 15);
-            this.lblCapacity.TabIndex = 35;
-            this.lblCapacity.Text = "capacity";
+            this.lblAtmCapacity.AutoSize = true;
+            this.lblAtmCapacity.CausesValidation = false;
+            this.lblAtmCapacity.Location = new System.Drawing.Point(720, 413);
+            this.lblAtmCapacity.Name = "lblAtmCapacity";
+            this.lblAtmCapacity.Size = new System.Drawing.Size(79, 15);
+            this.lblAtmCapacity.TabIndex = 35;
+            this.lblAtmCapacity.Text = "вместимость";
             // 
-            // lblnumber
+            // lblAtmNumber
             // 
-            this.lblnumber.AutoSize = true;
-            this.lblnumber.Location = new System.Drawing.Point(720, 395);
-            this.lblnumber.Name = "lblnumber";
-            this.lblnumber.Size = new System.Drawing.Size(105, 15);
-            this.lblnumber.TabIndex = 34;
-            this.lblnumber.Text = "номер банкомата";
+            this.lblAtmNumber.AutoSize = true;
+            this.lblAtmNumber.Location = new System.Drawing.Point(720, 395);
+            this.lblAtmNumber.Name = "lblAtmNumber";
+            this.lblAtmNumber.Size = new System.Drawing.Size(105, 15);
+            this.lblAtmNumber.TabIndex = 34;
+            this.lblAtmNumber.Text = "номер банкомата";
             // 
-            // lblDate
+            // lblCurrentDate
             // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.CausesValidation = false;
-            this.lblDate.Location = new System.Drawing.Point(720, 359);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(30, 15);
-            this.lblDate.TabIndex = 33;
-            this.lblDate.Text = "дата";
+            this.lblCurrentDate.AutoSize = true;
+            this.lblCurrentDate.CausesValidation = false;
+            this.lblCurrentDate.Location = new System.Drawing.Point(720, 359);
+            this.lblCurrentDate.Name = "lblCurrentDate";
+            this.lblCurrentDate.Size = new System.Drawing.Size(30, 15);
+            this.lblCurrentDate.TabIndex = 33;
+            this.lblCurrentDate.Text = "дата";
             // 
             // lblSumInATMNow
             // 
             this.lblSumInATMNow.AutoSize = true;
             this.lblSumInATMNow.Location = new System.Drawing.Point(720, 513);
             this.lblSumInATMNow.Name = "lblSumInATMNow";
-            this.lblSumInATMNow.Size = new System.Drawing.Size(155, 15);
+            this.lblSumInATMNow.Size = new System.Drawing.Size(114, 15);
             this.lblSumInATMNow.TabIndex = 37;
-            this.lblSumInATMNow.Text = "сейчас сумма в банкомате";
+            this.lblSumInATMNow.Text = "сумма в банкомате";
             // 
-            // btnConfirm
+            // btnConfirmSum
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(700, 223);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(258, 23);
-            this.btnConfirm.TabIndex = 38;
-            this.btnConfirm.Text = "Подтвердить";
-            this.btnConfirm.UseVisualStyleBackColor = true;
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            this.btnConfirmSum.Location = new System.Drawing.Point(700, 223);
+            this.btnConfirmSum.Name = "btnConfirmSum";
+            this.btnConfirmSum.Size = new System.Drawing.Size(258, 23);
+            this.btnConfirmSum.TabIndex = 38;
+            this.btnConfirmSum.Text = "Подтвердить";
+            this.btnConfirmSum.UseVisualStyleBackColor = true;
+            this.btnConfirmSum.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // lblCountBanknotesNow
             // 
@@ -449,7 +455,6 @@ namespace ATM
             this.tbBancnotesCountInRange.Name = "tbBancnotesCountInRange";
             this.tbBancnotesCountInRange.Size = new System.Drawing.Size(232, 23);
             this.tbBancnotesCountInRange.TabIndex = 42;
-            this.tbBancnotesCountInRange.Text = "Админу кол-во банкнот каждого вида";
             // 
             // lblAllRangeBancnotesInATV
             // 
@@ -460,39 +465,101 @@ namespace ATM
             this.lblAllRangeBancnotesInATV.Text = "Количество банкнот  каждого номинала\r\n10    50    100   200   500   1000  2000  5" +
     "000  ";
             // 
-            // Form1
+            // lblChoiceAmountWithdraw
+            // 
+            this.lblChoiceAmountWithdraw.Location = new System.Drawing.Point(391, 31);
+            this.lblChoiceAmountWithdraw.Name = "lblChoiceAmountWithdraw";
+            this.lblChoiceAmountWithdraw.Size = new System.Drawing.Size(233, 21);
+            this.lblChoiceAmountWithdraw.TabIndex = 44;
+            this.lblChoiceAmountWithdraw.Text = "Введите сумму для снятия и нажмите ОК\r\n";
+            this.lblChoiceAmountWithdraw.Visible = false;
+            // 
+            // numWithdrawAmount
+            // 
+            this.numWithdrawAmount.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numWithdrawAmount.Location = new System.Drawing.Point(391, 55);
+            this.numWithdrawAmount.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numWithdrawAmount.Name = "numWithdrawAmount";
+            this.numWithdrawAmount.Size = new System.Drawing.Size(148, 23);
+            this.numWithdrawAmount.TabIndex = 45;
+            // 
+            // btnConfirmWithdrawalAmount
+            // 
+            this.btnConfirmWithdrawalAmount.Location = new System.Drawing.Point(555, 55);
+            this.btnConfirmWithdrawalAmount.Name = "btnConfirmWithdrawalAmount";
+            this.btnConfirmWithdrawalAmount.Size = new System.Drawing.Size(46, 23);
+            this.btnConfirmWithdrawalAmount.TabIndex = 46;
+            this.btnConfirmWithdrawalAmount.Text = "OK";
+            this.btnConfirmWithdrawalAmount.UseVisualStyleBackColor = true;
+            this.btnConfirmWithdrawalAmount.Visible = false;
+            this.btnConfirmWithdrawalAmount.Click += new System.EventHandler(this.btnConfirmWithdrawalAmount_Click);
+            // 
+            // tbResultWithdrawn
+            // 
+            this.tbResultWithdrawn.Enabled = false;
+            this.tbResultWithdrawn.Location = new System.Drawing.Point(677, 54);
+            this.tbResultWithdrawn.Name = "tbResultWithdrawn";
+            this.tbResultWithdrawn.Size = new System.Drawing.Size(281, 23);
+            this.tbResultWithdrawn.TabIndex = 47;
+            this.tbResultWithdrawn.Visible = false;
+            // 
+            // lblWithdrawResult
+            // 
+            this.lblWithdrawResult.AutoSize = true;
+            this.lblWithdrawResult.CausesValidation = false;
+            this.lblWithdrawResult.Location = new System.Drawing.Point(677, 31);
+            this.lblWithdrawResult.Name = "lblWithdrawResult";
+            this.lblWithdrawResult.Size = new System.Drawing.Size(103, 15);
+            this.lblWithdrawResult.TabIndex = 48;
+            this.lblWithdrawResult.Text = "Результат снятия:";
+            this.lblWithdrawResult.Visible = false;
+            // 
+            // AtmForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 587);
+            this.Controls.Add(this.lblWithdrawResult);
+            this.Controls.Add(this.tbResultWithdrawn);
+            this.Controls.Add(this.btnConfirmWithdrawalAmount);
+            this.Controls.Add(this.numWithdrawAmount);
+            this.Controls.Add(this.lblChoiceAmountWithdraw);
             this.Controls.Add(this.lblAllRangeBancnotesInATV);
             this.Controls.Add(this.tbBancnotesCountInRange);
             this.Controls.Add(this.lblTitleSumOnAcc);
             this.Controls.Add(this.tbSummOnAccNow);
             this.Controls.Add(this.lblCountBanknotesNow);
-            this.Controls.Add(this.btnConfirm);
+            this.Controls.Add(this.btnConfirmSum);
             this.Controls.Add(this.lblSumInATMNow);
-            this.Controls.Add(this.lblCapacity);
-            this.Controls.Add(this.lblnumber);
-            this.Controls.Add(this.lblDate);
+            this.Controls.Add(this.lblAtmCapacity);
+            this.Controls.Add(this.lblAtmNumber);
+            this.Controls.Add(this.lblCurrentDate);
             this.Controls.Add(this.tbSumIntoAcc);
             this.Controls.Add(this.lblPlanSumOnAccAdd);
-            this.Controls.Add(this.numericUpDown5000);
-            this.Controls.Add(this.numericUpDown2000);
-            this.Controls.Add(this.numericUpDown1000);
-            this.Controls.Add(this.numericUpDown500);
-            this.Controls.Add(this.numericUpDown200);
-            this.Controls.Add(this.numericUpDown100);
-            this.Controls.Add(this.numericUpDown50);
-            this.Controls.Add(this.numericUpDown10);
-            this.Controls.Add(this.lbl5000);
-            this.Controls.Add(this.lbl2000);
-            this.Controls.Add(this.lbl1000);
-            this.Controls.Add(this.lbl500);
-            this.Controls.Add(this.lbl200);
-            this.Controls.Add(this.lbl100);
-            this.Controls.Add(this.lbl50);
-            this.Controls.Add(this.lbl10);
+            this.Controls.Add(this.num5000Rubbles);
+            this.Controls.Add(this.num2000Rubbles);
+            this.Controls.Add(this.num1000Rubbles);
+            this.Controls.Add(this.num500Rubbles);
+            this.Controls.Add(this.num200Rubbles);
+            this.Controls.Add(this.num100Rubbles);
+            this.Controls.Add(this.num50Rubbles);
+            this.Controls.Add(this.num10Rubbles);
+            this.Controls.Add(this.lbl5000Rubbles);
+            this.Controls.Add(this.lbl2000Rubbles);
+            this.Controls.Add(this.lbl1000Rubbles);
+            this.Controls.Add(this.lbl500Rubbles);
+            this.Controls.Add(this.lbl200Rubbles);
+            this.Controls.Add(this.lbl100Rubbles);
+            this.Controls.Add(this.lbl50Rubbles);
+            this.Controls.Add(this.lbl10Rubbles);
             this.Controls.Add(this.lblChooseBanknotes);
             this.Controls.Add(this.lblMoneyDeposit);
             this.Controls.Add(this.btnChangeUser);
@@ -510,17 +577,18 @@ namespace ATM
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "AtmForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ATM_Hello_page";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5000)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2000)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1000)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown500)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown200)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown100)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown50)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
+            this.Text = "ATM";
+            ((System.ComponentModel.ISupportInitialize)(this.num5000Rubbles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num2000Rubbles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num1000Rubbles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num500Rubbles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num200Rubbles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num100Rubbles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num50Rubbles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num10Rubbles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWithdrawAmount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -543,34 +611,39 @@ namespace ATM
 
         private System.Windows.Forms.Label lblMoneyDeposit;
         private System.Windows.Forms.Label lblChooseBanknotes;
-        private System.Windows.Forms.Label lbl10;
-        private System.Windows.Forms.Label lbl50;
-        private System.Windows.Forms.Label lbl100;
-        private System.Windows.Forms.Label lbl200;
-        private System.Windows.Forms.Label lbl500;
-        private System.Windows.Forms.Label lbl1000;
-        private System.Windows.Forms.Label lbl2000;
-        private System.Windows.Forms.Label lbl5000;
-        private System.Windows.Forms.NumericUpDown numericUpDown10;
-        private System.Windows.Forms.NumericUpDown numericUpDown50;
-        private System.Windows.Forms.NumericUpDown numericUpDown100;
-        private System.Windows.Forms.NumericUpDown numericUpDown200;
-        private System.Windows.Forms.NumericUpDown numericUpDown500;
-        private System.Windows.Forms.NumericUpDown numericUpDown1000;
-        private System.Windows.Forms.NumericUpDown numericUpDown2000;
-        private System.Windows.Forms.NumericUpDown numericUpDown5000;
+        private System.Windows.Forms.Label lbl10Rubbles;
+        private System.Windows.Forms.Label lbl50Rubbles;
+        private System.Windows.Forms.Label lbl100Rubbles;
+        private System.Windows.Forms.Label lbl200Rubbles;
+        private System.Windows.Forms.Label lbl500Rubbles;
+        private System.Windows.Forms.Label lbl1000Rubbles;
+        private System.Windows.Forms.Label lbl2000Rubbles;
+        private System.Windows.Forms.Label lbl5000Rubbles;
+        private System.Windows.Forms.NumericUpDown num10Rubbles;
+        private System.Windows.Forms.NumericUpDown num50Rubbles;
+        private System.Windows.Forms.NumericUpDown num100Rubbles;
+        private System.Windows.Forms.NumericUpDown num200Rubbles;
+        private System.Windows.Forms.NumericUpDown num500Rubbles;
+        private System.Windows.Forms.NumericUpDown num1000Rubbles;
+        private System.Windows.Forms.NumericUpDown num2000Rubbles;
+        private System.Windows.Forms.NumericUpDown num5000Rubbles;
         private System.Windows.Forms.Label lblPlanSumOnAccAdd;
         private System.Windows.Forms.TextBox tbSumIntoAcc;
-        private System.Windows.Forms.Label lblCapacity;
-        private System.Windows.Forms.Label lblnumber;
-        private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.Label lblAtmCapacity;
+        private System.Windows.Forms.Label lblAtmNumber;
+        private System.Windows.Forms.Label lblCurrentDate;
         private System.Windows.Forms.Label lblSumInATMNow;
-        private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.Button btnConfirmSum;
         private System.Windows.Forms.Label lblCountBanknotesNow;
         private System.Windows.Forms.TextBox tbSummOnAccNow;
         private System.Windows.Forms.Label lblTitleSumOnAcc;
         private System.Windows.Forms.TextBox tbBancnotesCountInRange;
         private System.Windows.Forms.Label lblAllRangeBancnotesInATV;
+        private System.Windows.Forms.Label lblChoiceAmountWithdraw;
+        private System.Windows.Forms.NumericUpDown numWithdrawAmount;
+        private System.Windows.Forms.Button btnConfirmWithdrawalAmount;
+        private System.Windows.Forms.TextBox tbResultWithdrawn;
+        private System.Windows.Forms.Label lblWithdrawResult;
     }
 }
 

@@ -22,5 +22,8 @@ namespace ATM
         /// Получить общее количество банкнот, планируемых к внесению или снятию
         /// </summary>
         public int TotalBanknotesCount => CountByDenominations.Sum(b => b.Value);
+
+        
+
     }
 }
